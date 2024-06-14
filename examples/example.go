@@ -3,9 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"net/url"
 	"os"
 
-	"github.com/sendgrid/rest"
+	"github.com/maitres/sendgrid-rest"
 )
 
 func main() {
@@ -24,9 +25,9 @@ func main() {
 	method := rest.Get
 
 	// Build the query parameters
-	queryParams := make(map[string]string)
-	queryParams["limit"] = "100"
-	queryParams["offset"] = "0"
+	queryParams := url.Values{}
+	queryParams.Add("limit", "100")
+	queryParams.Add("offset", "0")
 
 	// Make the API call
 	request := rest.Request{

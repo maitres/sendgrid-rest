@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/http/httputil"
+	"net/url"
 	"os"
 	"regexp"
 	"strings"
@@ -19,9 +20,9 @@ import (
 func TestBuildURL(t *testing.T) {
 	t.Parallel()
 	host := "http://api.test.com"
-	queryParams := make(map[string]string)
-	queryParams["test"] = "1"
-	queryParams["test2"] = "2"
+	queryParams := url.Values{}
+	queryParams.Add("test", "1")
+	queryParams.Add("test2", "2")
 	testURL := AddQueryParameters(host, queryParams)
 	if testURL != "http://api.test.com?test=1&test2=2" {
 		t.Error("Bad BuildURL result")
@@ -36,9 +37,9 @@ func TestBuildRequest(t *testing.T) {
 	Headers := make(map[string]string)
 	Headers["Content-Type"] = "application/json"
 	Headers["Authorization"] = "Bearer " + key
-	queryParams := make(map[string]string)
-	queryParams["test"] = "1"
-	queryParams["test2"] = "2"
+	queryParams := url.Values{}
+	queryParams.Add("test", "1")
+	queryParams.Add("test2", "2")
 	request := Request{
 		Method:      method,
 		BaseURL:     baseURL,
@@ -175,9 +176,9 @@ func testingAPI(t *testing.T, fn func(request Request) (*Response, error)) {
 	Headers["Content-Type"] = "application/json"
 	Headers["Authorization"] = "Bearer " + key
 	method := Get
-	queryParams := make(map[string]string)
-	queryParams["test"] = "1"
-	queryParams["test2"] = "2"
+	queryParams := url.Values{}
+	queryParams.Add("test", "1")
+	queryParams.Add("test2", "2")
 	request := Request{
 		Method:      method,
 		BaseURL:     baseURL,

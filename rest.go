@@ -29,7 +29,7 @@ type Request struct {
 	Method      Method
 	BaseURL     string // e.g. https://api.sendgrid.com
 	Headers     map[string]string
-	QueryParams map[string]string
+	QueryParams url.Values
 	Body        []byte
 }
 
@@ -61,13 +61,9 @@ type Response struct {
 }
 
 // AddQueryParameters adds query parameters to the URL.
-func AddQueryParameters(baseURL string, queryParams map[string]string) string {
+func AddQueryParameters(baseURL string, queryParams url.Values) string {
 	baseURL += "?"
-	params := url.Values{}
-	for key, value := range queryParams {
-		params.Add(key, value)
-	}
-	return baseURL + params.Encode()
+	return baseURL + queryParams.Encode()
 }
 
 // BuildRequestObject creates the HTTP request object.

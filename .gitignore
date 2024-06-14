@@ -26,3 +26,6 @@ _testmain.go
 .settings.json
 
 temp.go
+
+# JetBrains IDE
+.idea
